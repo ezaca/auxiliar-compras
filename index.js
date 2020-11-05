@@ -10,3 +10,9 @@ setInterval(function() {
   let randomChoice = randomValueFromArray(images);
   imgElem.src = 'images/' + randomChoice + '.jpg';
 }, 2000)
+
+if('serviceWorker' in navigator) {
+  navigator.serviceWorker
+           .register('/pwa-examples/a2hs/sw.js')
+           .then(function() { console.log('Service Worker Registered'); });
+}

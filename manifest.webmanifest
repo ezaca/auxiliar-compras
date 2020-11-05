@@ -1,0 +1,15 @@
+{
+  "background_color": "#795548",
+  "description": "Auxiliar pessoal para contabilizar o valor das compras no mercado.",
+  "display": "minimal-ui",
+  "icons": [
+    {
+      "src": "icon/fox-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "name": "Auxiliar para Compras",
+  "short_name": "Foxes",
+  "start_url": "/auxiliar-compras/index.html"
+}

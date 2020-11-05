@@ -10,9 +10,8 @@ Nota: Não estou com preguiça de montar um ambiente local para testes, estou ap
 
  - Instalação através de Progressive Web Apps (PWA);
  - Utilização offline;
- - ...
  - Criação de lista de compras com preço;
  - Execução de lista de compras e comparação com preços planejados;
 
-(Inspirado no projeto *a2hs* disponível em [github.com/mdn/pwa-examples/](https://github.com/mdn/pwa-examples/))
+(Inspirado no projeto *a2hs* disponível em [https://github.com/mdn/pwa-examples/](https://github.com/mdn/pwa-examples/))
 (The application and documents are written in Brazilian Portuguese.)

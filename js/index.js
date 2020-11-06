@@ -115,7 +115,7 @@ if(('serviceWorker' in navigator) && (window.location.origin !== 'file://')) {
 
 let deferredPromptPWA;
 const installWebAppBtn = document.querySelector('#installWebApp');
-// installWebAppBtn.style.display = 'none';
+ installWebAppBtn.style.display = 'none';
 
 installWebAppBtn.addEventListener('click', (e) => {
     e.preventDefault();
@@ -124,6 +124,7 @@ installWebAppBtn.addEventListener('click', (e) => {
 });
 
 window.addEventListener('beforeinstallprompt', (e) => {
+    installWebAppBtn.style.display = '';
     e.preventDefault();
     deferredPromptPWA = e;
     installWebAppBtn.style.display = '';

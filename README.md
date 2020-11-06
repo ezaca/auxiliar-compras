@@ -15,6 +15,12 @@ Nota: Não estou com preguiça de montar um ambiente local para testes, estou ap
 
 ---
 
-(Inspirado no projeto *a2hs* disponível em [https://github.com/mdn/pwa-examples/](https://github.com/mdn/pwa-examples/))
+Inspirado no projeto *a2hs* disponível em [https://github.com/mdn/pwa-examples/](https://github.com/mdn/pwa-examples/).
+
+Utilizei o [Bootstrap](https://getbootstrap.com/) para deixar o CSS de lado e me concentrar na lógica do aplicativo.
+
+Utilizei [Vue.js](https://vuejs.org/) porque ~~não~~ é divertido e é muito prático.
+
+Utilizei ícones do site [Icons8](https://icons8.com/) porque são bonitos (e gratuitos).
 
 (The application and documents are written in Brazilian Portuguese.)

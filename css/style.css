@@ -1,0 +1,28 @@
+.table-relative-cells td{
+    position: relative;
+}
+
+.full-rect{
+    border: none !important;
+    position: absolute !important;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100% !important;
+}
+
+.strikeout td, .strikeout input{
+    background: #f5f5f5 !important;
+    color: silver !important;
+    text-decoration: line-through;
+}
+
+input::placeholder{
+    font-style: italic;
+}
+
+.form-check-input.huge{
+    width: 20px;
+    height: 20px;
+}

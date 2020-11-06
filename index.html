@@ -1,13 +1,52 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="pt-br">
+<head>
     <meta charset="utf-8">
-    <title>A2HS demo</title>
-    <link href="style.css" rel="stylesheet">
-    <script src="index.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Auxiliar Para Compras</title>
     <link rel="manifest" href="manifest.webmanifest">
-  </head>
-  <body>
-    <img src="images/fox1.jpg" alt="a fox picture">
-  </body>
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="third-party/bootstrap4/css/bootstrap.min.css">
+</head>
+<body>
+<div id="app" class="m-1">
+    <h4 class="pb-3">Lists</h4>
+    <div v-for="(list, index) in lists" class="input-group mb-1">
+        <input type="type" class="form-control" v-on:input="late_save" v-model="list.title">
+        <div class="input-group-append">
+            <input type="date" class="form-control" v-on:input="late_save" v-model="list.date">
+        </div>
+        <div class="input-group-append">
+            <button class="btn btn-primary" alt="Abrir lista" title="Abrir lista" v-on:click="navigate('list.html#list='+index)">Abrir</button>
+        </div>
+        <div class="input-group-append">
+            <button class="btn btn-secondary" alt="Excluir lista" title="Excluir lista" v-on:click="confirm('Excluir lista '+list.title+'?') && lists.splice(index, 1) && save()"><img src="icons8/icons8-trash-26.png"></button>
+        </div>
+    </div>
+
+    <form method="get" action="" v-on:submit="lists_create" class="pt-3">
+        <div class="input-group">
+            <input class="form-control" type="text" placeholder="Nome da lista" list="suggested-list-name" v-model="inputs.lists.add">
+            <div class="input-group-append">
+                <input type="date" class="form-control" v-model="inputs.lists.adddate">
+            </div>
+            <div class="input-group-append">
+                <input type="submit" class="btn btn-outline-primary" value="Adicionar lista">
+            </div>
+        </div>
+        <datalist id="suggested-list-name">
+            <option value="Mercado"></option>
+            <option value="Mercearia"></option>
+            <option value="Açougue"></option>
+            <option value="Padaria"></option>
+            <option value="Farmácia"></option>
+            <option value="Loja"></option>
+            <option value="Lista"></option>
+        </datalist>
+    </form>
+</div>
+<!-- <script src="third-party/bootstrap4/js/bootstrap.min.js"></script> -->
+<script src="third-party/vuejs/vue.min.js"></script>
+<script src="js/index.js"></script>
+</body>
 </html>

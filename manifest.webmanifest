@@ -1,7 +1,7 @@
 {
   "background_color": "#007bff",
   "description": "Auxiliar pessoal para contabilizar o valor das compras no mercado.",
-  "display": "minimal-ui",
+  "display": "fullscreen",
   "icons": [
     {
       "src": "icon/fox-icon.png",

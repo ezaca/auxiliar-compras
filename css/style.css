@@ -1,3 +1,8 @@
+body {
+  /* Tries to disable pull-to-refresh and overscroll glow effect. */
+  overscroll-behavior-y: none;
+}
+
 .table-relative-cells td{
     position: relative;
 }

@@ -1,6 +1,6 @@
 self.addEventListener('install', function(e) {
     e.waitUntil(
-        caches.open('fox-store').then(function(cache) {
+        caches.open('auxiliar-compras').then(function(cache) {
             return cache.addAll([
                 // App
                 '/auxiliar-compras/',
@@ -29,7 +29,7 @@ self.addEventListener('install', function(e) {
 });
 
 self.addEventListener('fetch', function(e) {
-    console.log(e.request.url);
+    console.log('Fetch:', e.request.url);
     e.respondWith(
         caches.match(e.request).then(function(response) {
             return response || fetch(e.request);

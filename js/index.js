@@ -33,6 +33,10 @@ var app = new Vue({
         lists: main_user_list,
     },
     methods: {
+        refreshPage(){
+            window.location.reload();
+        },
+
         // Lists
         lists_create(ev){
             ev.preventDefault();
@@ -51,7 +55,7 @@ var app = new Vue({
             ev.preventDefault();
             this.lists[this.query.list].items.push({ qnt: 1, name: '' });
             save();
-        }
+        },
 
         // Execute
         // Report
@@ -108,3 +112,19 @@ if(('serviceWorker' in navigator) && (window.location.origin !== 'file://')) {
 } else {
     console.log('Service worker could not be registered');
 }
+
+let deferredPromptPWA;
+const installWebAppBtn = document.querySelector('#installWebApp');
+// installWebAppBtn.style.display = 'none';
+
+installWebAppBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    deferredPromptPWA.prompt();
+    deferredPromptPWA.userChoice.then((choiceResult) => { deferredPromptPWA = null; });
+});
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPromptPWA = e;
+    installWebAppBtn.style.display = '';
+});

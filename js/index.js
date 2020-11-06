@@ -107,7 +107,7 @@ function getItem(array, index){
 
 if(('serviceWorker' in navigator) && (window.location.origin !== 'file://')) {
     navigator.serviceWorker
-    .register('/pwa-examples/a2hs/sw.js')
+    .register('/auxiliar-compras/js/sw.js')
     .then(function() { console.log('Service worker registered'); });
 } else {
     console.log('Service worker could not be registered');

@@ -1,6 +1,7 @@
 body {
-  /* Tries to disable pull-to-refresh and overscroll glow effect. */
-  overscroll-behavior-y: none;
+    /* Tries to disable pull-to-refresh and overscroll glow effect. */
+    overscroll-behavior-y: none;
+    margin-top: 8px;
 }
 
 .table-relative-cells td{

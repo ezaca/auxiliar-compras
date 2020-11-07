@@ -56,17 +56,23 @@ var app = new Vue({
             window.location.reload();
         },
 
-        listenUser(grammar){
+        listenUser(){
             speechRecognition({
                 timeout: 5000,
-                grammar,
                 start: () => {
                     this.recognition.listening = true;
                 },
                 success: result => {
-                    this.recognition.last = result.transcript;
+                    let m, r = result.transcript;
+                    this.recognition.last = r;
                     this.recognition.listening = false;
                     this.recognition.success = true;
+                    if (m = /(?:criar|lista)\s*(?:para)?\s*(\S+)/.exec(r))
+                    {
+                        this.inputs.lists.add = ucfirst(m[1]);
+                        this.inputs.lists.adddate = yyyymmdd(new Date());
+                        this.lists_create();
+                    }
                 },
                 error: error => {
                     this.recognition.listening = false;
@@ -76,8 +82,7 @@ var app = new Vue({
         },
 
         // Lists
-        lists_create(ev){
-            ev.preventDefault();
+        lists_create(){
             this.lists.push({
                 title: this.inputs.lists.add || 'Lista',
                 date: this.inputs.lists.adddate,
@@ -146,10 +151,10 @@ function getItem(array, index){
 function speechRecognition({timeout, success, error, start, grammar}){
     let timer, handled = false;
     let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-    let speechRecognitionList = new (window.SpeechGrammarList || window.webkitSpeechGrammarList)();
-    speechRecognitionList.addFromString(grammar, 1);
+    // let speechRecognitionList = new (window.SpeechGrammarList || window.webkitSpeechGrammarList)();
+    // speechRecognitionList.addFromString(grammar, 1);
+    // recognition.grammars = speechRecognitionList;
     recognition.lang = "pt-BR";
-    recognition.grammars = speechRecognitionList;
     recognition.onresult = function(event) {
         handled = true;
         clearTimeout(timer);
@@ -168,6 +173,9 @@ function speechRecognition({timeout, success, error, start, grammar}){
     recognition.start();
     return recognition;
 }
+
+var $ = q => document.querySelector(q);
+var $$ = q => document.querySelectorAll(q);
 
 var grammars = {
     lists: `
@@ -191,7 +199,7 @@ if(('serviceWorker' in navigator) && (window.location.origin !== 'file://')) {
 }
 
 let deferredPromptPWA;
-const installWebAppBtn = document.querySelector('#installWebApp');
+const installWebAppBtn = $('#installWebApp');
  installWebAppBtn.style.display = 'none';
 
 installWebAppBtn.addEventListener('click', (e) => {

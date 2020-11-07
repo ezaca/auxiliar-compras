@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <form method="get" action="" v-on:submit="lists_create" class="pt-3">
+    <form method="get" action="" v-on:submit.prevent="lists_create" class="pt-3">
         <div class="input-group mb-3">
             <input class="form-control" type="text" placeholder="Nome da lista" list="suggested-list-name" v-model="inputs.lists.add">
             <div class="input-group-append">

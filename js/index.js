@@ -58,7 +58,7 @@ var app = new Vue({
 
         listenUser(){
             speechRecognition({
-                timeout: 5000,
+                timeout: 0,
                 start: () => {
                     this.recognition.listening = true;
                 },

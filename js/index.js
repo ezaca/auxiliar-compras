@@ -2,6 +2,16 @@
 // Vue.js Data
 // ----------------
 
+var list_types = [
+    'mercado',
+    'mercearia',
+    'açougue',
+    'padaria',
+    'farmácia',
+    'loja',
+    'lista',
+];
+
 var main_user_list = JSON.parse(window.localStorage.getItem('auxcom') || 'null') ||
 [{
     title: 'Mercado',
@@ -21,11 +31,20 @@ var main_user_list = JSON.parse(window.localStorage.getItem('auxcom') || 'null')
 var app = new Vue({
     el: '#app',
     data: {
+        recognition: {
+            listening: false,
+            last: null,
+            success: true,
+        },
         inputs: {
             lists: {
                 add: '',
                 adddate: yyyymmdd(new Date()),
             },
+        },
+        ext: {
+            list_types,
+            grammars,
         },
         query: {
             list: Number(getItem(/#list=(\d+)/.exec(window.location.hash), 1)),
@@ -35,6 +54,25 @@ var app = new Vue({
     methods: {
         refreshPage(){
             window.location.reload();
+        },
+
+        listenUser(grammar){
+            speechRecognition({
+                timeout: 5000,
+                grammar,
+                start: () => {
+                    this.recognition.listening = true;
+                },
+                success: result => {
+                    this.recognition.last = result.transcript;
+                    this.recognition.listening = false;
+                    this.recognition.success = true;
+                },
+                error: error => {
+                    this.recognition.listening = false;
+                    this.recognition.success = false;
+                },
+            });
         },
 
         // Lists
@@ -93,6 +131,10 @@ function yyyymmdd(date){
     return  d.getFullYear() + '-' + d.getMonth().toString().padStart(2, '0') + '-' + d.getDate().toString().padStart(2, '0');
 }
 
+function ucfirst(text){
+    return text[0].toUpperCase() + text.substr(1);
+}
+
 function navigate(url){
     window.location.href = url;
 }
@@ -100,6 +142,41 @@ function navigate(url){
 function getItem(array, index){
     return array ? array[index] : undefined;
 }
+
+function speechRecognition({timeout, success, error, start, grammar}){
+    let timer, handled = false;
+    let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    let speechRecognitionList = new (window.SpeechGrammarList || window.webkitSpeechGrammarList)();
+    speechRecognitionList.addFromString(grammar, 1);
+    recognition.lang = "pt-BR";
+    recognition.grammars = speechRecognitionList;
+    recognition.onresult = function(event) {
+        handled = true;
+        clearTimeout(timer);
+        success && success(event.results[0][0]);
+    };
+    recognition.onerror = function(...args){
+        handled = true;
+        error && error(...args);
+    };
+    recognition.onend = () => ! handled && error && error(false);
+    if (timeout > 0)
+        recognition.onstart = function(){
+            start && start();
+            timer = setTimeout(()=>recognition.abort(), timeout);
+        };
+    recognition.start();
+    return recognition;
+}
+
+var grammars = {
+    lists: `
+#JSGF V1.0;
+grammar auxiliarcompras.lists;
+public <comandos> = criar lista [para <tipo>];
+<tipo> = ${ list_types.join('|') };
+`,
+};
 
 // ----------------
 // PWA

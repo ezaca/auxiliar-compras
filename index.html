@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no">
     <title>Auxiliar Para Compras</title>
     <link rel="manifest" href="manifest.webmanifest">
     <link href="css/style.css" rel="stylesheet">
@@ -25,7 +25,7 @@
     </div>
 
     <form method="get" action="" v-on:submit="lists_create" class="pt-3">
-        <div class="input-group">
+        <div class="input-group mb-3">
             <input class="form-control" type="text" placeholder="Nome da lista" list="suggested-list-name" v-model="inputs.lists.add">
             <div class="input-group-append">
                 <input type="date" class="form-control" v-model="inputs.lists.adddate">
@@ -34,16 +34,23 @@
                 <input type="submit" class="btn btn-outline-primary" value="Adicionar lista">
             </div>
         </div>
-        <datalist id="suggested-list-name">
-            <option value="Mercado"></option>
-            <option value="Mercearia"></option>
-            <option value="Açougue"></option>
-            <option value="Padaria"></option>
-            <option value="Farmácia"></option>
-            <option value="Loja"></option>
-            <option value="Lista"></option>
-        </datalist>
+        <div class="input-group">
+            <button type="button" class="btn btn-success" v-on:click="listenUser(grammars.lists)">Comando de voz</button>
+            <div class="input-group-append" v-if="recognition.listening">
+                <span class="input-group-text">Ouvindo...</span>
+            </div>
+            <div class="input-group-append" v-if="! recognition.listening && recognition.last && recognition.success">
+                <span class="input-group-text">Você disse "{{ recognition.last }}"?</span>
+            </div>
+            <div class="input-group-append" v-if="! recognition.listening && ! recognition.success">
+                <span class="input-group-text">Não foi possível reconhecer o comando.</span>
+            </div>
+        </div>
     </form>
+
+    <datalist id="suggested-list-name">
+        <option v-for="item in ext.list_types" v-bind:value="ucfirst(item)"></option>
+    </datalist>
 </div>
 
 <div class="mt-4 pt-4 text-center">

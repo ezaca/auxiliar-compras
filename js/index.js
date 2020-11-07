@@ -67,7 +67,7 @@ var app = new Vue({
                     this.recognition.last = r;
                     this.recognition.listening = false;
                     this.recognition.success = true;
-                    if (m = /(?:criar|lista)\s*(?:para)?\s*(\S+)/.exec(r))
+                    if (m = /(?:criar\s*listas?|criar|listas?)\s*(?:para)?\s*(\S+)/.exec(r))
                     {
                         this.inputs.lists.add = ucfirst(m[1]);
                         this.inputs.lists.adddate = yyyymmdd(new Date());

@@ -1,5 +1,7 @@
 # Auxiliar para Compras
 
+**⚠️ Archived repository / Repositório arquivado. Outro repositório "lista-de-compras" substituirá esta aplicação.**
+
 Auxiliar pessoal para planejar e contabilizar o valor das compras no mercado.
 
 **Esta aplicação ainda não está pronta para o uso. Este é um ambiente para testes e pode ser removido a qualquer momento.**
